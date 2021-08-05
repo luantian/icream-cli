@@ -1,6 +1,6 @@
 {
   "name": "@icream-cli/core",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "> TODO: description",
   "author": "栾天 <tian.luan@percent.cn>",
   "homepage": "",
@@ -23,6 +23,6 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@icream-cli/utils": "^0.0.3"
+    "@icream-cli/utils": "^0.0.4"
   }
 }
