@@ -3,6 +3,7 @@ node_modules
 
 packages/**/node_modules
 packages/**/package-lock.json
+lerna-debug.log
 
 # local env files
 .env.local
