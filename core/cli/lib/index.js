@@ -8,26 +8,76 @@ const semver = require('semver')
 const colors = require('colors/safe')
 const userHome = require('user-home')
 const pathExists = require('path-exists').sync
+const commander = require('commander')
+
+const init = require('@icream-cli/init')
+
 
 const log = require('@icream-cli/log')
 const pkg = require('../package.json')
 const constant = require('./const')
 
 
-function core() {
+const program = new commander.Command()
+
+async function core() {
 
   try {
-    checkPkgVersion()
+    // checkPkgVersion()
     checkNodeVersion()
     checkRoot()
     checkUserHome()
     // 检查入参，主要是判断是否要进入调试模式
-    checkInputArgs()
+    // checkInputArgs()
     checkEnv()
-    checkGlobalUpdate()
+    await checkGlobalUpdate()
+    registorCommand()
 
   } catch (error) {
     log.error(error.message)
+  }
+
+}
+
+function registorCommand() {
+  program
+    .name((Object.keys(pkg.bin))[0])
+    .usage('<command> [options]')
+    .version(`${pkg.name.replace('/core', '')} ${pkg.version}`)
+    .option('-d, --debug', 'output extra debugging', false)
+
+  program
+    .command('init [projectName]')
+    .option('-f --force', '是否强制初始化', false)
+    .action(init)
+
+  program.on('option:debug', () => {
+    const options = program.opts();
+    if (options.debug) {
+      process.env.LOG_LEVEL = 'verbose'
+    } else {
+      process.env.LOG_LEVEL = 'info'
+    }
+    log.level = process.env.LOG_LEVEL
+    log.verbose('环境变量', 'test')
+  })
+
+  program.on('command:*', (obj) => {
+
+    console.log('program.args', program.args)
+
+    const availableCommands = program.commands.map((cmd) => cmd.name())
+
+    if (availableCommands.length > 0) {
+      console.log(colors.red(`可用命令${availableCommands.join(',')}`))
+    }
+
+  })
+
+  program.parse(process.argv)
+
+  if (program.args && program.args.length < 1) {
+    program.outputHelp()
   }
 
 }
@@ -50,9 +100,9 @@ async function checkGlobalUpdate() {
 
 }
 
-function checkPkgVersion() {
-  log.info(pkg.version)
-}
+// function checkPkgVersion() {
+//   log.info(pkg.version)
+// }
 
 function checkNodeVersion() {
 
@@ -78,6 +128,10 @@ function checkUserHome() {
 
 function checkInputArgs() {
   const minimist = require('minimist')
+  checkArgs()
+}
+
+function checkArgs() {
   const args = minimist(process.argv.slice(2))
   if (args.debug) {
     process.env.LOG_LEVEL = 'verbose'
@@ -99,7 +153,6 @@ function checkEnv() {
 
   createDefaultConfig()
 
-  log.verbose('环境变量', config, process.env.CLI_HOME_PATH)
 }
 
 function createDefaultConfig() {
