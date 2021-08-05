@@ -1,11 +1,11 @@
-# `@icream-cli/core`
+# `get-npm-info`
 
 > TODO: description
 
 ## Usage
 
 ```
-const core = require('@icream-cli/core');
+const getNpmInfo = require('get-npm-info');
 
 // TODO: DEMONSTRATE API
 ```

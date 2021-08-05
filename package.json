@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "icream": "./bin/index.js"
+    "icream": "./core/bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,5 +13,6 @@
   "license": "ISC",
   "devDependencies": {
     "lerna": "^4.0.0"
-  }
+  },
+  "dependencies": {}
 }
