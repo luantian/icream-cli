@@ -1,13 +1,41 @@
-0 silly argv { _: [ 'link' ], lernaVersion: '4.0.0', '$0': 'lerna' }
+0 silly argv { _: [ 'version' ], lernaVersion: '4.0.0', '$0': 'lerna' }
 1 notice cli v4.0.0
 2 verbose rootPath /Users/terence/Documents/studyspace/icream-cli
-3 error Error: Invalid package name "@icream-utils": name can only contain URL-friendly characters
-3 error     at invalidPackageName (/Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/npm-package-arg/npa.js:89:15)
-3 error     at Result.setName (/Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/npm-package-arg/npa.js:124:11)
-3 error     at new Result (/Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/npm-package-arg/npa.js:114:23)
-3 error     at Function.resolve (/Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/npm-package-arg/npa.js:61:15)
-3 error     at /Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/@lerna/package-graph/index.js:66:30
-3 error     at Array.forEach (<anonymous>)
-3 error     at /Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/@lerna/package-graph/index.js:60:38
-3 error     at Map.forEach (<anonymous>)
-3 error     at new PackageGraph (/Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/@lerna/package-graph/index.js:49:10)
+3 info current version 0.0.0
+4 silly isAnythingCommitted
+5 verbose isAnythingCommitted 1
+6 silly getCurrentBranch
+7 verbose currentBranch master
+8 silly remoteBranchExists
+9 silly isBehindUpstream
+10 silly isBehindUpstream master is behind origin/master by 0 commit(s) and ahead by 0
+11 silly hasTags
+12 verbose hasTags false
+13 info Assuming all packages changed
+14 verbose updated @icream-cli/core
+15 verbose updated @icream-cli/utils
+16 verbose git-describe undefined => "491c2c9"
+17 silly git-describe parsed => {"refCount":"1","sha":"491c2c9","isDirty":false}
+18 info execute Skipping releases
+19 silly lifecycle No script for "preversion" in "icream-cli", continuing
+20 silly lifecycle No script for "preversion" in "@icream-cli/utils", continuing
+21 silly lifecycle No script for "version" in "@icream-cli/utils", continuing
+22 silly lifecycle No script for "preversion" in "@icream-cli/core", continuing
+23 silly lifecycle No script for "version" in "@icream-cli/core", continuing
+24 silly lifecycle No script for "version" in "icream-cli", continuing
+25 silly gitAdd [
+25 silly gitAdd   'packages/utils/package.json',
+25 silly gitAdd   'packages/utils/package-lock.json',
+25 silly gitAdd   'packages/core/package.json',
+25 silly gitAdd   'packages/core/package-lock.json',
+25 silly gitAdd   'lerna.json'
+25 silly gitAdd ]
+26 error Error: Command failed with exit code 1: git add -- packages/utils/package.json packages/utils/package-lock.json packages/core/package.json packages/core/package-lock.json lerna.json
+26 error The following paths are ignored by one of your .gitignore files:
+26 error packages/core/package-lock.json
+26 error packages/utils/package-lock.json
+26 error Use -f if you really want to add them.
+26 error     at makeError (/Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/execa/lib/error.js:59:11)
+26 error     at handlePromise (/Users/terence/.nvm/versions/node/v12.16.1/lib/node_modules/lerna/node_modules/execa/index.js:114:26)
+26 error     at processTicksAndRejections (internal/process/task_queues.js:97:5)
+26 error     at async Promise.all (index 0)
