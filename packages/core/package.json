@@ -1,6 +1,6 @@
 {
   "name": "@icream-cli/core",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "栾天 <tian.luan@percent.cn>",
   "homepage": "",
@@ -24,5 +24,6 @@
   },
   "dependencies": {
     "@icream-cli/utils": "^0.0.5"
-  }
+  },
+  "gitHead": "45aa9ab858b09a8bdcb82b06b28bc7fa9bb57e92"
 }
