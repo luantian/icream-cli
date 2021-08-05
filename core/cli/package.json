@@ -1,0 +1,38 @@
+{
+  "name": "@icream-cli/core",
+  "version": "1.0.6",
+  "description": "> TODO: description",
+  "author": "栾天 <tian.luan@percent.cn>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "bin": {
+    "icream": "./bin/index.js"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "@icream-cli/log": "file:../../utils/log",
+    "@icream-cli/get-npm-info": "file:../../utils/get-npm-info",
+    "colors": "^1.4.0",
+    "dotenv": "^10.0.0",
+    "import-local": "^3.0.2",
+    "minimist": "^1.2.5",
+    "path-exists": "^4.0.0",
+    "root-check": "~1.0.0",
+    "semver": "^7.3.5",
+    "user-home": "^3.0.0"
+  },
+  "gitHead": "cb7483e4be75e6cfe007dbd6d5c56f3f69da29ee"
+}
