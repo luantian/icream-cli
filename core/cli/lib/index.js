@@ -11,6 +11,7 @@ const pathExists = require('path-exists').sync
 const commander = require('commander')
 
 const init = require('@icream-cli/init')
+const exec = require('@icream-cli/exec')
 
 
 const log = require('@icream-cli/log')
@@ -23,33 +24,39 @@ const program = new commander.Command()
 async function core() {
 
   try {
-    // checkPkgVersion()
-    checkNodeVersion()
-    checkRoot()
-    checkUserHome()
-    // 检查入参，主要是判断是否要进入调试模式
-    // checkInputArgs()
-    checkEnv()
-    await checkGlobalUpdate()
+    await prepare()
     registorCommand()
-
   } catch (error) {
     log.error(error.message)
+    if (process.env.LOG_LEVEL === 'verbose') {
+      console.log(error)
+    }
   }
 
 }
 
+async function prepare() {
+  // checkPkgVersion()
+  checkNodeVersion()
+  checkRoot()
+  checkUserHome()
+  checkEnv()
+  await checkGlobalUpdate()
+}
+
 function registorCommand() {
+  // 全局配置
   program
     .name((Object.keys(pkg.bin))[0])
     .usage('<command> [options]')
     .version(`${pkg.name.replace('/core', '')} ${pkg.version}`)
     .option('-d, --debug', 'output extra debugging', false)
+    .option('-tp, --targetPath <targetPath>', '是否制定本地调试文件路径', '')
 
   program
     .command('init [projectName]')
     .option('-f --force', '是否强制初始化', false)
-    .action(init)
+    .action(exec)
 
   program.on('option:debug', () => {
     const options = program.opts();
@@ -59,12 +66,14 @@ function registorCommand() {
       process.env.LOG_LEVEL = 'info'
     }
     log.level = process.env.LOG_LEVEL
-    log.verbose('环境变量', 'test')
+  })
+
+  program.on('option:targetPath', () => {
+    const options = program.opts();
+    process.env.CLI_TARGET_PATH = options.targetPath
   })
 
   program.on('command:*', (obj) => {
-
-    console.log('program.args', program.args)
 
     const availableCommands = program.commands.map((cmd) => cmd.name())
 
@@ -124,21 +133,6 @@ function checkUserHome() {
   if (!userHome || !pathExists(userHome)) {
     throw new Error('当前登录用户主目录不存在')
   }
-}
-
-function checkInputArgs() {
-  const minimist = require('minimist')
-  checkArgs()
-}
-
-function checkArgs() {
-  const args = minimist(process.argv.slice(2))
-  if (args.debug) {
-    process.env.LOG_LEVEL = 'verbose'
-  } else {
-    process.env.LOG_LEVEL = 'info'
-  }
-  log.level = process.env.LOG_LEVEL
 }
 
 function checkEnv() {

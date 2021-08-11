@@ -3,7 +3,7 @@
 
 const log = require('npmlog')
 
-log.level = process.env.LOG_LEVEL || 'verbose' // 判断debug模式
+// log.level = process.env.LOG_LEVEL || 'verbose' // 判断debug模式
 
 log.heading = 'icream' // 修改log前缀
 
