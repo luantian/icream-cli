@@ -1,8 +1,24 @@
 'use strict';
 
-function main(projectName, options, command) {
-  console.log('options', options)
-  console.log('init_targetPath', process.env.CLI_TARGET_PATH)
+const log = require('@icream-cli/log')
+const Command = require('@icream-cli/command')
+
+function init(argv) {
+  return new InitCommand(argv)
 }
 
-module.exports = main;
+class InitCommand extends Command {
+  init() {
+    this.projectName = this._argv[0] || ''
+    this.opts = this._argv[this._argv.length - 1]
+    log.verbose('projectName', this.projectName)
+    log.verbose('force', this.opts.force)
+  }
+
+  exec() {
+
+  }
+}
+
+module.exports = init;
+// module.exports.InitCommand = InitCommand;
