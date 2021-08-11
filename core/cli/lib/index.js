@@ -10,14 +10,11 @@ const userHome = require('user-home')
 const pathExists = require('path-exists').sync
 const commander = require('commander')
 
-const init = require('@icream-cli/init')
 const exec = require('@icream-cli/exec')
-
 
 const log = require('@icream-cli/log')
 const pkg = require('../package.json')
 const constant = require('./const')
-
 
 const program = new commander.Command()
 
@@ -37,7 +34,6 @@ async function core() {
 
 async function prepare() {
   // checkPkgVersion()
-  checkNodeVersion()
   checkRoot()
   checkUserHome()
   checkEnv()
@@ -56,6 +52,7 @@ function registorCommand() {
   program
     .command('init [projectName]')
     .option('-f --force', '是否强制初始化', false)
+    .option('-a --aaaa', '是否强制初始化', false)
     .action(exec)
 
   program.on('option:debug', () => {
@@ -113,16 +110,7 @@ async function checkGlobalUpdate() {
 //   log.info(pkg.version)
 // }
 
-function checkNodeVersion() {
 
-  const currentVersion = process.version
-  const lowestNodeVersion = constant.LOWEST_NODE_VERSION
-
-  if (!semver.gte(currentVersion, lowestNodeVersion)) {
-    throw new Error(colors.red(`icream-cli 需要安装 ${lowestNodeVersion} 版本以上的nodejs`))
-  }
-
-}
 
 function checkRoot() {
   const rootCheck = require('root-check')
