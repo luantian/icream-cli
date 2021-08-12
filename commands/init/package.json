@@ -27,7 +27,10 @@
     "url": "https://github.com/luantian/icream-cli/issues"
   },
   "dependencies": {
+    "@icream-cli/command": "file:../../models/command",
     "@icream-cli/log": "file:../../utils/log",
-    "@icream-cli/command": "file:../../models/command"
+    "fs-extra": "^10.0.0",
+    "inquirer": "^8.1.2",
+    "semver": "^7.3.5"
   }
 }
