@@ -1,6 +1,6 @@
 {
   "name": "@icream-cli/core",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "> TODO: description",
   "author": "栾天 <tian.luan@percent.cn>",
   "homepage": "",
@@ -23,10 +23,10 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@icream-cli/get-npm-info": "file:../../utils/get-npm-info",
-    "@icream-cli/log": "file:../../utils/log",
-    "@icream-cli/init": "file:../../commands/init",
     "@icream-cli/exec": "file:../exec",
+    "@icream-cli/get-npm-info": "file:../../utils/get-npm-info",
+    "@icream-cli/init": "file:../../commands/init",
+    "@icream-cli/log": "file:../../utils/log",
     "colors": "^1.4.0",
     "commander": "^8.1.0",
     "dotenv": "^10.0.0",

@@ -1,6 +1,6 @@
 {
   "name": "exec",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "> TODO: description",
   "author": "栾天 <tian.luan@percent.cn>",
   "homepage": "https://github.com/luantian/icream-cli#readme",
@@ -27,7 +27,7 @@
     "url": "https://github.com/luantian/icream-cli/issues"
   },
   "dependencies": {
-    "@icream-cli/package": "file:../../models/package",
-    "@icream-cli/log": "file:../../utils/log"
+    "@icream-cli/log": "file:../../utils/log",
+    "@icream-cli/package": "file:../../models/package"
   }
 }
