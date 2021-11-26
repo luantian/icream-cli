@@ -13,6 +13,30 @@ const TYPE_PROJECT = 'project'
 const TYPE_COMPONENT = 'component'
 
 let prompt = {}
+prompt.dirEmpty = {
+  type: 'confirm',
+  name: 'ifContinue',
+  default: false,
+  message: '当前文件夹不为空，是否继续创建项目？'
+}
+
+prompt.choiceType = {
+  type: 'list',
+  message: '请选择初始化类型',
+  name: 'type',
+  default: TYPE_PROJECT,
+  choices: [
+    {
+      name: '项目',
+      value: TYPE_PROJECT
+    },
+    {
+      name: '组件',
+      value: TYPE_COMPONENT
+    },
+  ]
+}
+
 prompt.projectName = {
   type: 'input',
   name: 'projectName',
@@ -63,7 +87,11 @@ class InitCommand extends Command {
       // 准备阶段
       // 下载模板
       // 安装模板
-      await this.prepare()
+      const projectInfo = await this.prepare()
+
+      if (projectInfo) {
+        log.verbose('projectInfo', projectInfo)
+      }
     } catch (error) {
       log.error(error.message)
     }
@@ -78,19 +106,14 @@ class InitCommand extends Command {
     }
 
     if (!this.isDirEmpty(localPath) && this.force) {
-      const { ifContinue } = await inquirer.prompt(
-        {
-          type: 'confirm',
-          name: 'ifContinue',
-          default: false,
-          message: '当前文件夹不为空，是否继续创建项目？'
-        }
-      )
+      const { ifContinue } = await inquirer.prompt(  prompt.dirEmpty )
       if (ifContinue) {
         // 启动强制更新  清空当前目录
         console.log('localPath', localPath)
         // fse.emptyDirSync(localPath)
         console.log('此处执行清空代码，暂时注释')
+      } else {
+        return
       }
     }
 
@@ -100,34 +123,26 @@ class InitCommand extends Command {
 
   async getProjectInfo() {
     // 选择创建项目或者是组件
-    const { type } = await inquirer.prompt({
-      type: 'list',
-      message: '请选择初始化类型',
-      name: 'type',
-      default: TYPE_PROJECT,
-      choices: [
-        {
-          name: '项目',
-          value: TYPE_PROJECT
-        },
-        {
-          name: '组件',
-          value: TYPE_COMPONENT
-        },
-      ]
-    })
+    let projectInfo = {}
+    const { type } = await inquirer.prompt( prompt.choiceType )
 
     log.verbose('type', type)
 
     if (type === TYPE_PROJECT) {
-      const o = inquirer.prompt([
+      const project = await inquirer.prompt([
         prompt.projectName,
         prompt.version
       ])
-      // console.log('o', o)
+
+      projectInfo = {
+        type,
+        ...project
+      }
     } else if (type === TYPE_COMPONENT) {
 
     }
+
+    return projectInfo
 
   }
 
@@ -138,9 +153,7 @@ class InitCommand extends Command {
     ))
     return !fileList || fileList.length <= 0
   }
-
 }
-
 
 function init(argv) {
   return new InitCommand(argv)
